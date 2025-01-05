@@ -1,0 +1,7 @@
+﻿{
+    "name": "Sensitivity Fix",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/Tiny-Resort/SensitivityFix",
+    "description": "Makes look sensitivity more consistent and smooth.",
+    "dependencies": ["BepInEx-BepInExPack-5.4.2100"]
+}
