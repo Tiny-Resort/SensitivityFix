@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using BepInEx;
+using UnityEngine.InputSystem;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class SensitivityFix : BaseUnityPlugin
@@ -36,7 +37,28 @@ public class PlayerLookInputPatch
 
     // Calling this function makes it easy to adjust the value without a more complicated code instruction in the transpiler
     private static float GetModifier() {
-        return Time.deltaTime / 2f;
+
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.leftAltKey.isPressed && Keyboard.current.leftCtrlKey.isPressed)
+            return 0.008f;
+        
+        var deltaTime = Time.deltaTime;
+
+        /*if (Keyboard.current.leftAltKey.isPressed) { 
+            if (Random.Range(0.0f, 1.0f) < 0.02)
+                Fibonacci(Random.RandomRangeInt(32, 36));
+            else
+                Fibonacci(31);
+        }
+        if (Mathf.Abs(deltaTime - 0.016f) >= 0.001f)
+            Debug.Log("SENSITIVITY FIX: Delta Time is " + deltaTime);*/
+        
+        return Mathf.Max(deltaTime, 0.0083f) / 2f;
     }
+
+    /*private static int Fibonacci(int n)
+    {
+        if (n <= 1) return n;
+        return Fibonacci(n - 1) + Fibonacci(n - 2);
+    }*/
 
 }
